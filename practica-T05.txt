@@ -1,0 +1,92 @@
+Tema 5 - Práctica
+
+01.Escribe una clase abstracta que permita representar un Personaje de un juego de rol. Todo personaje debe tener un nmobre, una raza, un nivel, una cantidad de puntos de vida base, que determinan su vitalidad, una cantidad de puntos de ataque base que determinan su fuerza, una cantidad de puntos de velocidad que determinan su agilidad, una cantidad de puntos de armadura base que determinan su fortaleza física, y una cantidad de puntos de resistencia mágica que determinan su tolerancia a ataques mágicos.
+Además, todo personaje tiene solamente dos estados, vivo o muerto. Revisa que los atributos cumplan las siguientes condiciones:
+-Los únicos atributos inicializables son el nombre y la raza. El nivel se inicializa a 1, los puntos de vida se inicializan a 100 y el resto de estadísticas a 10.
+-El nombre del personaje debe tener, como mínimo, cuatro caracteres. Si el Personaje tiene apellidos, se mostrará sin espacios junto al nombre.
+-Con el objetivo de no ofender a organizaciones religiosas, la raza del personaje no puede ser ni “ángel” ni “demonio”.
+-Añade el método subirNivel() para incrementar en uno su nivel. Cuando un personaje sube de nivel pueden aumentar sus estadísticas, con una probabilidad del 50% de subir en una cantidad equivalente a su nivel. La única excepción son los puntos de vida, que suben siempre el 10% de su valor actual. Por ejemplo, un personaje con los valores por defecto que sube a nivel dos, aumentaría 2 puntos todas sus estadísticas siempre haya superado la probabilidad del 50% con la excepción de los puntos de vida, que incrementarían 10 directamente. 
+-Añade un constructor por defecto, un constructor por parámetros, y getters.
+-Añade los métodos luchar() y defender(int, String). Luchar toma el valor de ataque del Personaje y lo devuelve como el daño a realizar a otro Personaje. Defender suma el daño recibido por parámetros, lo resta con la estadística defensiva pertinente (armadura para el daño físico, resistencia mágica para el mágico) y resta el resultado a los puntos de vida del Personaje. 
+-Añade el método toString para describir el estado del Personaje.
+
+02.Escribe una subclase Guerrero que herede de Personaje. Las distintas subclases presentan variaciones en la probabilidad de subir los valores de sus estadísticas y la cantidad que aumentan en función de sus ventajas y penalizaciones. En concreto, el Guerrero tiene una probabilidad del 80% de mejorar su ataque e incrementa el doble de lo habitual, y del 75% de vida y armadura; sin embargo, solo tiene un 20% de posibilidades de mejorar su resistencia mágica y esta mejora la mitad de lo habitual. Su velocidad no presenta ni ventajas ni penalizaciones. Además, todo Guerrero tiene un atributo adicional, “furia”, que cuando está activo duplica temporalmente la estadística de ataque del guerrero, pero que provoca que al defenderse reciba también el doble de daño.
+-Añade el atributo furia a la clase.
+-Añade un constructor por defecto, un constructor por parámetros, y getters. Cuando sea pertinente, utiliza los valores de la superclase.
+-Sobrescribe el método subirNivel() de la clase Personaje para que los incrementos de estadísticas se correspondan con las ventajas y penalizaciones descritas.
+-Actualiza los métodos luchar() y defender() para tener en cuenta el modificador de furia.
+-Modifica el método toString para describir el estado del Guerrero.
+
+03.Escribe una subclase Mago que herede de Personaje. Un Mago tiene un atributo adicional, una cantidad de puntos de magia que determinan su destreza utilizando hechizos, que parte de un valor de 10 y con cada nivel tiene un 90% de probabilidades de aumentar. Los Magos solo tienen una probabilidad de mejora del 35% de vida y armadura, y del 15% de ataque, y reciben la mitad y un cuarto de sus estadísticas respectivamente; sin embargo, sus probabilidades de aumento son del 80% para la resistencia mágica y del 65% para la velocidad. Además, tienen la posibilidad de lanzar conjuros además de atacar como el resto de Personajes.
+-Añade el atributo magia a la clase.
+-Sobrescribe el método subirNivel() de la clase Personaje para que los incrementos de estadísticas se correspondan con las ventajas y penalizaciones descritas.
+-Añade un constructor por defecto, un constructor por parámetros, y getters. Cuando sea pertinente, utiliza los valores de la superclase.
+-Añade un método lanzarConjuro(int, String) que, dependiendo del entero que reciba por parámetros, permita al mago lanzar los siguientes hechizos al objetivo:
+	*Bola de fuego (1): lanza una bola de fuego incandescente que causa un 70% de sus puntos de magia como daño a un enemigo.
+	*Escudo arcano (2): protege a un aliado, aumentando su estadística de armadura y resistencia mágica el 50% de los puntos de magia del mago.
+	*Céfiro (3): un fuerte viento causa un 30% de sus puntos de magia como daño a todos los enemigos.
+	*Presteza mental (4): agiliza las reacciones de un aliado, aumentando su velocidad un 100% de los puntos de magia del mago. 
+-Sobrecarga el método luchar() para que admita un parámetro con el hechizo a lanzar.
+-Implementa el método apoyar(int, String) que permita apoyar con un conjuro a un aliado objetivo. Ten en cuenta que solo se puede apoyar con conjuros no ofensivos.
+-Modifica el método toString para describir el estado del Mago.
+
+04.Escribe una subclase Ladrón que herede de la clase Persona. Un Ladrón tiene una probabilidad de incremento al subir de nivel del 85% de velocidad el doble de lo habitual, y del 60% de ataque; pero se reduce al 40% en todos los demás atributos. 
+-Sobrescribe el método subirNivel() de la clase Personaje para que los incrementos de estadísticas se correspondan con las ventajas y penalizaciones descritas.
+-Añade un constructor por defecto, un constructor por parámetros, y getters. Cuando sea pertinente, utiliza los valores de la superclase.
+-El Ladrón tiene una acción especial, Robar. Esta funcionalidad se implementará al completo en prácticas posteriores. Por ahora, crea el método que la contendrá, e implementa como funcionalidad que el Ladrón golpee con su velocidad en lugar de con su ataque.
+-Modifica el método toString para describir el estado del Ladrón.
+
+05.Escribe una subclase Cazador que herede de Personaje. Un Cazador tiene únicamente una ventaja en la posibilidad de incrementar su velocidad del 70%, pero trae consigo un Compañero Animal que comparte parcialmente sus atributos y ataca con él.
+-Implementa al Compañero Animal como una clase anidada dentro de Cazador. Un Compañero Animal sigue siendo un Personaje. El atributo raza del compañero animal contendrá su especie, que puede ser de tres tipos con sus respectivas variaciones en atributos respecto al cazador:
+	*Cánido: 20% de todos los atributos.
+	*Felino: 30% de ataque y velocidad, 15% de todos los demás.
+	*Rapaz: 35% de velocidad, 25% de resistencia mágica, 15% de ataque, 5% de vida y armadura.
+	Esto quiere decir que un cánido siempre tendrá un 20% de todas las estadísticas del Cazador al que acompaña, y su subida de nivel no incrementará sus estadísticas de forma independiente.
+-Sobrescribe el método subirNivel() de la clase Personaje para que los incrementos de estadísticas se correspondan con las ventajas y penalizaciones descritas. En el caso del Compañero Animal, modifícalo para ajustarse a su Cazador.
+-Añade un constructor por defecto, un constructor por parámetros, y getters. Cuando sea pertinente, utiliza los valores de la superclase.
+-Modifica el método luchar() para que los ataques del Compañero Animal se sumen a los del Cazador. El método defender() no se ve afectado.
+-Modifica el método toString para describir el estado del Cazador. Recuerda que debe incluir el estado del Compañero Animal, por lo que es recomendable implementar también su toString().
+
+06.Escribe una subclase abstracta Creyente que herede de Personaje. Los Creyentes tienen un atributo adicional, una cantidad de puntos de fe que determinan su destreza haciendo milagros. Sus bonificaciones y penalizaciones varían en función del tipo de Creyente. Tienen la posibilidad de utilizar milagros en lugar de atacar como el resto de personajes.
+-Añade el atributo fe a la clase.
+-Añade un constructor por defecto, un constructor por parámetros, y getters. Cuando sea pertinente, utiliza los valores de la superclase.
+-Añade un método abstracto plegaria(int, String) que cambiará dependiendo del entero que se reciba por parámetros e irá dirigido a un objetivo. Los tipos de plegaria cambiarán en función del tipo de Creyente.
+-Modifica el método toString para describir el estado del Creyente.
+
+07.Escribe una subclase Paladín que herede de Creyente. Un Paladín es un tipo de Creyente que combate cuerpo a cuerpo, por lo que tienen una posibilidad de incrementar su armadura del 70% el doble de lo habitual, y aumentar su vida en un 5% adicional según una probabilidad del 50%; asimismo tienen un 60% de probabilidades de aumentar su ataque. Sin embargo, la velocidad solo tiene un 15% de probabilidades de incrementar un cuarto de lo habitual, y la fe un 30%. 
+-Añade un constructor por defecto, un constructor por parámetros, y getters. Cuando sea pertinente, utiliza los valores de las superclases.
+-Sobrescribe el método subirNivel() de la clase Personaje para que los incrementos de estadísticas se correspondan con las ventajas y penalizaciones descritas.
+-Sobrescribe el método plegaria(int, String) con los posibles milagros de los que dispone un paladín:
+	*Imbuir arma: el paladín añade el 80% de sus puntos de fe a los puntos de ataque del objetivo.
+	*Baluarte de fe: el paladín aumenta su propia armadura un 30% del valor de su fe. 
+-Modifica el método toString para describir el estado del Paladín.
+
+08.Escribe una subclase Clérigo que herede de Creyente. Un Clérigo es un tipo de Creyente que combate a distancia y sana a sus aliados, por lo que tienen una posibilidad de incremento de sus estadísticas de fe y resistencia mágica del 80%, y estas aumentan el doble de lo habitual. Sin embargo, su vida y armadura solo tienen un 20% de probabilidades de incrementar la mitad de lo habitual, y su ataque tiene un 10% de incrementar un cuarto de lo habitual. 
+-Añade un constructor por defecto, un constructor por parámetros, y getters. Cuando sea pertinente, utiliza los valores de las superclases.
+-Sobrescribe el método subirNivel() de la clase Personaje para que los incrementos de estadísticas se correspondan con las ventajas y penalizaciones descritas.
+-Modifica el método plegaria(int, String) con los posibles milagros de los que dispone un paladín:
+	*Sanación (1): sana el 70% de sus puntos de fe como vida a un aliado.
+	*Rezo sagrado (2): sana el 35% de sus puntos de fe como vida a todo el grupo.
+	*Cólera divina (3): causa el 55% de sus puntos de fe como daño sagrado a un objetivo.
+-Sobrecarga el método luchar() para que admita un parámetro con el hechizo a lanzar. 
+-Implementa el método apoyar(int, String) que permita apoyar con un conjuro a un aliado objetivo. Ten en cuenta que solo se puede apoyar con conjuros no ofensivos.
+-Modifica el método toString para describir el estado del Clérigo.
+
+09.Crea una subclase Monstruo que herede de Personaje. Un monstruo será un Personaje enemigo cuyas estadísticas varían en función del tipo (raza) de monstruo.
+-Añade un constructor por defecto, un constructor por parámetros, y getters. Cuando sea pertinente, utiliza los valores de las superclases.
+-Las ventajas y desventajas de los diferentes tipos de Monstruo afectan a sus estadísticas de la siguiente manera:
+	*Bestia: el doble de su nivel en ataque y velocidad, tanto como su nivel en puntos de vida, la mitad de su nivel en armadura y resistencia mágica.
+	*No-muerto: cuatro veces su nivel en resistencia mágica, tanto como su nivel en ataque, la mitad de su nivel en vida y armadura, un cuarto de su nivel en velocidad.
+	*Gigante: cuatro veces su nivel en vida y ataque, tanto como su nivel en  armadura, un cuarto de su nivel en velocidad y resistencia mágica.
+-Modifica el método toString para describir el estado del Monstruo.
+
+10.Finalmente, crea una clase final Combate que permita enfrentar a dos Personajes. Para ello:
+-Un combate tiene (para esta práctica) dos Personajes contendientes y un resultado con dos posibilidades: victoria o derrota.
+-Durante el Combate, se seguirá el siguiente procedimiento:
+	*Los Personajes se infligirán daño por turnos. El primero cuyos puntos de vida lleguen a 0 será dado por muerto y caerá derrotado.
+	*El primer Personaje en golpear es el que tiene la estadística de velocidad más alta. Si un Personaje duplica la velocidad del otro, éste golpea dos veces.
+	*En esta primera versión, sólo se computarán los ataques básicos de cada Personaje; es decir, se utilizará el método luchar, sin tener en cuenta los conjuros de apoyo. 
+	*Debe imprimirse por pantalla un registro de cada turno.
+-Modifica el método toString para que devuelva el resultado final del combate.
+
+
